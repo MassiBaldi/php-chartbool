@@ -10,8 +10,7 @@
   <body>
 
     <div class="container">
-      <?php include 'data.php' ?>
-      <canvas class="line" data-database="<?php echo ($database); ?>"></canvas>
+      <canvas class="line"></canvas>
     </div>
 
     <script src="main.js"></script>

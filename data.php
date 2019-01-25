@@ -4,4 +4,6 @@
 
   $database = json_encode($database);
 
+  echo $database;
+
 ?>
