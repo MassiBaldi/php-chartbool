@@ -10,36 +10,10 @@
   <body>
 
     <div class="container">
-      <canvas class="line"></canvas>
+      <?php include 'data.php' ?>
+      <canvas class="line" data-database="<?php echo ($database); ?>"></canvas>
     </div>
 
-    <script>
-
-      var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
-
-      <?php include 'data.php'; ?>;
-
-      var databasePhp = "<?php echo json_encode($database); ?>";
-      var database = JSON.parse(databasePhp);
-
-      console.log(database);
-
-      $(document).ready(function() {
-        var ctx = $('.line');
-        var chart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: months,
-            datasets: [{
-              label: "Fatturato",
-              backgroundColor: 'green',
-              borderColor: 'red',
-              data: database,
-            }]
-          }
-        });
-      });
-    </script>
-
+    <script src="main.js"></script>
   </body>
 </html>
