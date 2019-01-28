@@ -6,21 +6,37 @@ $(document).ready(function() {
     method: 'GET',
     success: function(data) {
       var database = JSON.parse(data);
-      //console.log(database);
+      console.log(database);
+      printLine(database);
 
-      var ctx = $('.line');
+    },
+    error: function() {
+      alert('errore');
+    }
+  })
+
+  $.ajax({
+    url: 'http://localhost/php-chart/datapie.php',
+    method: 'GET',
+    success: function(data) {
+      //console.log(data);
+      // var dataVal = JSON.parse(data);
+      // console.log(dataVal);
+      var lableNomi = JSON.parse(data);
+      console.log(lableNomi);
+
+      var ctx = $('.pie');
 
       var chart = new Chart(ctx, {
-        type: 'line',
+        type: 'pie',
         data: {
-          labels: months,
           datasets: [{
-            label: "Fatturato",
-            backgroundColor: 'green',
+            backgroundColor: 'yellow',
             borderColor: 'red',
-            data: database,
-          }]
-        }
+            data: [20,30,40,15],
+          }],
+          labels: lableNomi
+        },
       });
     },
     error: function() {
@@ -29,26 +45,19 @@ $(document).ready(function() {
   })
 });
 
+function printLine(database) {
+  var ctx = $('.line');
 
-
-
-// var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
-//
-// $(document).ready(function() {
-//
-//   var database = $('.line').data('database');
-//
-//   var ctx = $('.line');
-//   var chart = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//       labels: months,
-//       datasets: [{
-//         label: "Fatturato",
-//         backgroundColor: 'green',
-//         borderColor: 'red',
-//         data: database,
-//       }]
-//     }
-//   });
-// });
+  var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: "Fatturato",
+        backgroundColor: 'green',
+        borderColor: 'red',
+        data: database,
+      }]
+    },
+  });
+}
