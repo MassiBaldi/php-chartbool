@@ -2,12 +2,12 @@ var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Lug
 
 $(document).ready(function() {
   $.ajax({
-    url: 'http://localhost/php-chart/data.php',
+    url: 'http://localhost/php-chart/server.php',
     method: 'GET',
     success: function(data) {
-      var database = JSON.parse(data);
-      console.log(database);
-      printLine(database);
+      var results = JSON.parse(data);
+      //console.log(results);
+      printLineChart($('.lineMile1'), months, 'Fatturato Milestone 1', results);
 
     },
     error: function() {
@@ -16,48 +16,56 @@ $(document).ready(function() {
   })
 
   $.ajax({
-    url: 'http://localhost/php-chart/datapie.php',
+    url: 'http://localhost/php-chart/server2.php',
     method: 'GET',
     success: function(data) {
-      //console.log(data);
-      // var dataVal = JSON.parse(data);
-      // console.log(dataVal);
-      var lableNomi = JSON.parse(data);
-      console.log(lableNomi);
+      var results = JSON.parse(data);
+      //console.log(results);
 
-      var ctx = $('.pie');
+      printLineChart($('.lineMile2'), results.line.labels, 'Fatturato Milestone 2', results.line.data);
 
-      var chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          datasets: [{
-            backgroundColor: 'yellow',
-            borderColor: 'red',
-            data: [20,30,40,15],
-          }],
-          labels: lableNomi
-        },
-      });
+      printPieChart($('.pieMile2'),results.pie.labels, results.pie.data)
+
+
     },
     error: function() {
       alert('errore');
     }
   })
+
+
 });
 
-function printLine(database) {
-  var ctx = $('.line');
+function printLineChart(selettore, labels, title, results){
+  var ctx = selettore;
 
-  var chart = new Chart(ctx, {
+  var lineChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: months,
       datasets: [{
-        label: "Fatturato",
+        label: title,
         backgroundColor: 'green',
         borderColor: 'red',
-        data: database,
+        data: results,
       }]
     },
   });
+}
+
+function printPieChart(selettore, labels, results){
+  var ctx = selettore;
+
+  var pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      datasets: [{
+          data: results,
+          backgroundColor: ['yellow', 'yellow', 'yellow', 'yellow',],
+          borderColor: ['red', 'red', 'red', 'red',]
+      }],
+      labels: labels
+    }
+  });
+
 }

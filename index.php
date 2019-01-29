@@ -10,10 +10,13 @@
   <body>
 
     <div class="container">
-      <canvas class="line"></canvas>
-      <canvas class="pie"></canvas>
+      <h1>Milestone 1</h1>
+      <canvas class="lineMile1"></canvas>
+      <h1>Milestone 2</h1>
+      <canvas class="lineMile2"></canvas>
+      <canvas class="pieMile2"></canvas>
     </div>
-    
+
 
     <script src="main.js"></script>
   </body>
