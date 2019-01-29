@@ -33,6 +33,47 @@ $(document).ready(function() {
     }
   })
 
+  $.ajax({
+    url: 'http://localhost/php-chart/server3.php',
+    method: 'GET',
+    success: function(data) {
+      var results = JSON.parse(data);
+      //console.log(results);
+      printLineChart($('.lineMile3'), results.line.labels, 'Fatturato Milestone 3', results.line.data);
+
+      printPieChart($('.pieMile3'),results.pie.labels, results.pie.data);
+
+      new Chart($('.multilineMile3'), {
+        type: 'line',
+        data: {
+          labels: results.line.labels,
+          datasets: [{
+              data: results['multiline']['data'][0],
+              label: 'Team1',
+              borderColor: 'green',
+              fill: false
+            },
+            {
+              data: results['multiline']['data'][1],
+              label: 'Team2',
+              borderColor: 'red',
+              fill: false
+            },
+            {
+              data: results['multiline']['data'][2],
+              label: 'Team3',
+              borderColor: 'yellow',
+              fill: false
+            },
+          ]
+        },
+      });
+    },
+    error: function() {
+      alert('errore');
+    }
+  })
+
 
 });
 
@@ -42,7 +83,7 @@ function printLineChart(selettore, labels, title, results){
   var lineChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: months,
+      labels: labels,
       datasets: [{
         label: title,
         backgroundColor: 'green',
@@ -60,12 +101,11 @@ function printPieChart(selettore, labels, results){
     type: 'pie',
     data: {
       datasets: [{
-          data: results,
-          backgroundColor: ['yellow', 'yellow', 'yellow', 'yellow',],
-          borderColor: ['red', 'red', 'red', 'red',]
+        data: results,
+        backgroundColor: ['yellow', 'yellow', 'yellow', 'yellow',],
+        borderColor: ['red', 'red', 'red', 'red',]
       }],
       labels: labels
     }
   });
-
 }

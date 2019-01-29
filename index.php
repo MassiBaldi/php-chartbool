@@ -15,6 +15,10 @@
       <h1>Milestone 2</h1>
       <canvas class="lineMile2"></canvas>
       <canvas class="pieMile2"></canvas>
+      <h1>Milestone 3</h1>
+      <canvas class="lineMile3"></canvas>
+      <canvas class="pieMile3"></canvas>
+      <canvas class="multilineMile3"></canvas>
     </div>
 
 
